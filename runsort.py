@@ -6,7 +6,7 @@ from sys import exit
 
 
 def dosort():
-    # REMEMBER!!! lists start at 0 in python!
+    # REMEMBER!!! lists start at 0 in python, so the positions here are 0 to 9!
     # REMEMBER!!! If you go off the end of the list, python will crash!
 
     # this skeleton code makes a variable i go from 0 to 8 once
@@ -27,7 +27,7 @@ def dosort():
 # Set the dimensions of the window and display it
 display = pg.display.set_mode((600, 600))
 
-# set the colors:
+# set the colors to a nice rainbow effect :)
 colors = ("#ff0000", "#e88416", "#ffa500", "#faeb36", "#b9d725",
           "#79c314", "#487de7", "#4b369d", "#70369d", "#301934")
 # create a randomly sorted list of blocks from 1-10
@@ -66,5 +66,4 @@ if __name__ == "__main__":
                     pg.quit()
                     exit()
     except Exception as error:
-        # An exception occurred: ZeroDivisionError
         print("An exception occurred:", type(error).__name__)
