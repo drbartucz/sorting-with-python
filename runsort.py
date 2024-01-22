@@ -41,7 +41,6 @@ def check_events():
 
 # Swap two blocks (and update the visualization)
 def swap(left, right):
-    display.fill(pg.Color("#CBC3E3"))  # clear the window
 
     # swap the blocks
     print(f"before: {blocks} ", end="")  # to help with debugging
@@ -51,6 +50,7 @@ def swap(left, right):
     print(f"after: {blocks}")  # to help with debugging
 
     # draw the blocks
+    display.fill(pg.Color("#CBC3E3"))  # clear the window
     for i, len in enumerate(blocks):
         # pg.draw.rect(display_window, color_of_rectangle, (left, top, width, height))
         pg.draw.rect(display, colors[len - 1],
