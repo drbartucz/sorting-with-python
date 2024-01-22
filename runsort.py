@@ -32,6 +32,13 @@ colors = ("#ff0000", "#e88416", "#ffa500", "#faeb36", "#b9d725",
 blocks = [i for i in range(1, 11)]
 random.shuffle(blocks)
 
+# basically just keep the window open until they kill it
+def check_events():
+    for event in pg.event.get():
+        if event.type == pg.QUIT:
+            pg.quit()
+            exit()
+
 # Swap two blocks (and update the visualization)
 def swap(left, right):
     display.fill(pg.Color("#CBC3E3"))  # clear the window
@@ -40,26 +47,25 @@ def swap(left, right):
     tmp = blocks[left]
     blocks[left] = blocks[right]
     blocks[right] = tmp
+    print(blocks)
 
     # draw the blocks
     for i, len in enumerate(blocks):
         # pg.draw.rect(display_window, color_of_rectangle, (left, top, width, height))
         pg.draw.rect(display, colors[len - 1],
                      (60 + i * 50, 550 - 50 * len, 50, 50 * len))
-    pg.display.update()
+    pg.display.flip()
+    check_events()
     pg.time.wait(1000)  # slow down the visualization
 
 
 if __name__ == "__main__":
     # the program that is run
     try:
-        swap(1, 1)  # draw the  randomized blocks
-        pg.display.update()
+        pg.display.init()
+        swap(1, 1)  # draw the randomized blocks
         dosort()  # run the sorting algorithms
-        while True:  # basically just keep the window open until they kill it
-            for event in pg.event.get():
-                if event.type == pg.QUIT:
-                    pg.quit()
-                    exit()
+        while True:
+            check_events()
     except Exception as error:
         print("An exception occurred:", type(error).__name__)
