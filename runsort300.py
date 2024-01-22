@@ -2,11 +2,20 @@ import pygame as pg
 import random
 from sys import exit
 
-# this is an extension for runsort.py - do that part first!
+# this is an extension for the runsort.py assignment - do that part first!
+
+# change this variable to update the display more often
+# (smaller numbers will cause the program to run more slowly)
+SWAPS_BETWEEN_SCREEN_UPDATES = 100
+swap_counter = 0
+
 
 def dosort():
 
     # fill in your code here
+
+    if blocks[0] > blocks[1]:
+        swap(0, 1)  # example of swapping the first and second block
 
     return
 
@@ -20,6 +29,7 @@ display = pg.display.set_mode((700, 700))
 
 # set the colors to a random selection
 colors = ["#%06x" % random.randint(0, 0xFFFFFF) for _ in range(300)]
+colors.sort()  # makes a nice visual effect :)
 
 # create a randomly sorted list of blocks from 1-300
 blocks = [i for i in range(1, 301)]
@@ -35,21 +45,27 @@ def check_events():
 # Swap two blocks (and update the visualization)
 def swap(left, right):
 
-    pg.draw.rect(display, "#CBC3E3", (60 + left * 2, 650 - 2 * blocks[left], 2, 2 * blocks[left]))
-    pg.draw.rect(display, "#CBC3E3", (60 + right * 2, 650 - 2 * blocks[right], 2, 2 * blocks[right]))
-
     # swap the blocks
     tmp = blocks[left]
     blocks[left] = blocks[right]
     blocks[right] = tmp
 
-    # redraw the 2 blocks
-    pg.draw.rect(display, colors[left], (60 + left * 2, 650 - 2 * blocks[left], 2, 2 * blocks[left]))
-    pg.display.update(60 + left * 2, 650 - 2 * blocks[left], 2, 2 * blocks[left])
-    pg.draw.rect(display, colors[right], (60 + right * 2, 650 - 2 * blocks[right], 2, 2 * blocks[right]))
-    pg.display.update(60 + right * 2, 650 - 2 * blocks[right], 2, 2 * blocks[right])
-    check_events()
-    # pg.time.wait(500)  # slow down the visualization
+    # draw the blocks
+    display.fill(pg.Color("#CBC3E3"))  # clear the window
+    for i, len in enumerate(blocks):
+        # pg.draw.rect(display_window, color_of_rectangle, (left, top, width, height))
+        pg.draw.rect(display, colors[len - 1],
+                     (50 + i * 2, 650 - 2 * len, 2, 2 * len))
+
+    global swap_counter
+    if swap_counter == SWAPS_BETWEEN_SCREEN_UPDATES:
+        pg.display.update()
+        check_events()
+        swap_counter = 0
+    else:
+        swap_counter += 1
+
+    # pg.time.wait(500)  # slow down the visualization (milliseconds)
 
 
 if __name__ == "__main__":
