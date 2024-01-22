@@ -3,8 +3,6 @@ import random
 from sys import exit
 
 # this is your function to fill in!
-
-
 def dosort():
     # REMEMBER!!! lists start at 0 in python, so the positions here are 0 to 9!
     # REMEMBER!!! If you go off the end of the list, python will crash!
@@ -13,7 +11,7 @@ def dosort():
     # and swaps the block at position i with the next one over
     # essentially, it moves the first block to the end.
     for i in range(9):
-        swap(i, i+1)
+        swap(i, i + 1)
 
     # replace the code above with something that moves blocks to their proper positions!
 
@@ -35,8 +33,6 @@ blocks = [i for i in range(1, 11)]
 random.shuffle(blocks)
 
 # Swap two blocks (and update the visualization)
-
-
 def swap(left, right):
     display.fill(pg.Color("#CBC3E3"))  # clear the window
 
@@ -48,14 +44,14 @@ def swap(left, right):
     # draw the blocks
     for i, len in enumerate(blocks):
         # pg.draw.rect(display_window, color_of_rectangle, (left, top, width, height))
-        pg.draw.rect(display, colors[len-1],
-                     (60+i*50, 550 - 50 * len, 50, 50 * len))
+        pg.draw.rect(display, colors[len - 1],
+                     (60 + i * 50, 550 - 50 * len, 50, 50 * len))
     pg.display.update()
     pg.time.wait(1000)  # slow down the visualization
 
 
-# the program that is run
 if __name__ == "__main__":
+    # the program that is run
     try:
         swap(1, 1)  # draw the  randomized blocks
         pg.display.update()
